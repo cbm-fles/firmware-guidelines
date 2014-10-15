@@ -83,5 +83,3 @@ the groups involved and as an archive for CBM. It is not meant to
 replace a developer's local version control system and should not
 contain early development code or code that does not
 compile/sythesize.
-
-this is a test
