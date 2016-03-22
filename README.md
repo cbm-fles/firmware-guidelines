@@ -1,51 +1,57 @@
 CBM Firmware Repository
 =======================
 
-This repository contains the source code for all firmware used in the
-CBM experiment.
+The CBM firmware repository collection contains the source code for
+all firmware used in the CBM experiment.
 
 Repository Access
 -----------------
 
-The repository can be accessed using either SVN directly or GIT via
-the git-svn bridge (substitute your GSI Web Login name for *xxx*):
-
-    $ svn co --username xxx https://subversion.gsi.de/cbmsoft/firmware/trunk firmware
-    $ git svn clone --username=xxx -s https://subversion.gsi.de/cbmsoft/firmware
-
 Read access is open to all CBM collaborators.
 
 Commits should only be performed by the person responsible for the
-respective design or component, or by his or her representative. (This
-is presently not enforced by SVN, so please act responsibly. If you
-mess up the repository, you will generate lots of work for other
-people.)
+respective design or component, or by his or her
+representative. Contributions from other developers are welcome and
+should be handled via pull requests.
 
-Repository Contents
--------------------
+Firmware structure
+------------------
 
-The initial structure of the repository is:
+The Firmware is structured into `cores` and `designs`. Purpose of this
+structure is to provide defined interfaces between sub-projects with a
+minimal set of rules.
 
-    ├── cores
-    │   ├── cbm_net
-    |   └── ...
-    ├── designs
-    |   ├── roc3
-    |   └── ...
-    └── tools
+A core is a major building block that is used by several different
+designs. This does not include minor cores like FIFOs or RAM blocks,
+which may be part of a core or a design. For each core an interface
+documentation and an example design should be provided.
 
-The `cores` directory contains subdirectories for each major design
-core that is used by several different designs. This should not
-include minor cores like FIFOs or RAM blocks, which should be placed
-within the respective cores or designs.
+A design is a major firmware design project. A design may include
+cores as well as other sources.
 
-The `designs` directory contains subdirectories for each major
-firmware design project.
+For each component (design/core) a separate git repository may
+exist. A repository may also contain several components if they are
+closely related. Cores can be included into design repositories via
+the `git submodule` functionality.
 
-In addition, a `tools` directory is foreseen for generic scripts and
-tools that cannot be attributed to a specific core or design.
 
-Some general guidelines for the contents of the CBM firmware repository:
+Build results
+-------------
+
+Each firmware component must support fully automated builds. A file
+named `autobuild` should exist executing all necessary steps for a
+build.
+
+Builds for cores should result in synthesized netlists and matching
+constraints. Designs containing the respective core include these
+netlists/constraints during their build flow.
+
+Builds for designs should result in FPGA bitfiles and PROM files if
+applicable.
+
+
+General guidelines for the contents of the CBM firmware repositories
+--------------------------------------------------------------------
 
 - **Include all sources and scripts**  
   To ensure that a firmware image can be modified and rebuilt at a
@@ -59,27 +65,20 @@ Some general guidelines for the contents of the CBM firmware repository:
 
 - **No binary files**  
   In general, large binary (i.e., non-text) files should not be
-  committed as they are not handled well by SVN.
+  committed as they are not handled well by version control.
 
-- **Use trunk, tags and branches**  
-  Stick to the standard use of the SVN structure of trunk, tags and
-  branches. In general, most branches should be temporary and merged
-  with the trunk at some point.
+- **Use only temporary branches**
+  Stick to the standard use of branches. In general, branches should
+  be temporary and merged with the master at some point. Tags can be
+  used to label specific versions.
 
-- **Avoid the _svn:externals_ property**  
-  The repository should directly contain all required sources. Using
-  SVN Externals complicates the repository structure and causes
-  compatibility problems.
 
 Source Code Quality
 -------------------
 
-The code uploaded into this repository should meet the quality
+The repositories are meant as a platform for source code exchange
+between the groups involved and as an archive for CBM. The code
+uploaded into the repository master branch should meet the quality
 standards generally associated with **production** or **testing
-level** code.
-
-The repository is meant as a platform for source code exchange between
-the groups involved and as an archive for CBM. It is not meant to
-replace a developer's local version control system and should not
-contain early development code or code that does not
-compile/synthesize.
+level** code. It should not contain early development code or code
+that does not compile/synthesize.
