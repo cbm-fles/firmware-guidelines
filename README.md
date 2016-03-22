@@ -1,10 +1,10 @@
-CBM Firmware Repository
-=======================
+CBM Firmware Repository Guidelines
+==================================
 
 The CBM firmware repository collection contains the source code for
 all firmware used in the CBM experiment.
 
-Repository Access
+Repository access
 -----------------
 
 Read access is open to all CBM collaborators.
@@ -73,7 +73,7 @@ General guidelines for the contents of the CBM firmware repositories
   used to label specific versions.
 
 
-Source Code Quality
+Source code quality
 -------------------
 
 The repositories are meant as a platform for source code exchange
