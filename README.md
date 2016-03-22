@@ -4,6 +4,7 @@ CBM Firmware Repository Guidelines
 The CBM firmware repository collection contains the source code for
 all firmware used in the CBM experiment.
 
+
 Repository access
 -----------------
 
@@ -13,6 +14,7 @@ Commits should only be performed by the person responsible for the
 respective design or component, or by his or her
 representative. Contributions from other developers are welcome and
 should be handled via pull requests.
+
 
 Firmware structure
 ------------------
@@ -38,9 +40,7 @@ the `git submodule` functionality.
 Build results
 -------------
 
-Each firmware component must support fully automated builds. A file
-named `autobuild` should exist executing all necessary steps for a
-build.
+Each firmware component must support fully automated builds.
 
 Builds for cores should result in synthesized netlists and matching
 constraints. Designs containing the respective core include these
@@ -48,6 +48,30 @@ netlists/constraints during their build flow.
 
 Builds for designs should result in FPGA bitfiles and PROM files if
 applicable.
+
+
+Automated build flow
+--------------------
+
+The following conventions should be followed to facilitate the
+implementation of a continuous integration service:
+
+- In each repository, an executable file named `autobuild` should
+  exist at the top level. Invoking this file without command line
+  arguments should execute all necessary steps for a complete build. A
+  return code of zero from this file should indicate a successful
+  build including a check that all constraints were met.
+
+- The final build results (netlist/bitfile) should be placed in a
+  directory `result` at the top level of the repository. There must be
+  no subdirectories. The file names should not be volatile, i.e., they
+  should not contain version or date/time information. In general, the
+  toplevel netlist or bitfile should have the same base name as the
+  repository.
+
+- Additional output and log files relevant for later analysis should
+  be copied to a `report` directory at the top level of the
+  repository.
 
 
 General guidelines for the contents of the CBM firmware repositories
