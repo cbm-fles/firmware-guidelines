@@ -1,4 +1,4 @@
- CBM Firmware Repository
+CBM Firmware Repository
 =======================
 
 This repository contains the source code for all firmware used in the
@@ -54,7 +54,7 @@ Some general guidelines for the contents of the CBM firmware repository:
 
 - **No generated or unused files**  
   Files that can be automatically generated only clutter the
-  respository and should not be committed. The same applies to source
+  repository and should not be committed. The same applies to source
   code files that are not used in the project.
 
 - **No binary files**  
@@ -82,4 +82,4 @@ The repository is meant as a platform for source code exchange between
 the groups involved and as an archive for CBM. It is not meant to
 replace a developer's local version control system and should not
 contain early development code or code that does not
-compile/sythesize.
+compile/synthesize.
